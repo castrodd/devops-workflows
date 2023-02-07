@@ -15,19 +15,11 @@ jobs:
         fetch-depth: '0'
     - name: github context
       env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
+        GITHUB_CONTEXT: ${{ toJson(github.workflow_run.head_commit.message) }}
       run: echo "$GITHUB_CONTEXT"
-    - name: commits
-      env:
-        COMMITS: ${{ toJson(github.workflow_run.head_commit) }}
-      run: echo "$COMMITS"
-    - name: message
-      env:
-        COMMIT_MESSAGES: ${{ toJson(github.workflow_run.head_commit.message) }}
-      run: echo "$COMMIT_MESSAGES"
 
     - name: Bump version and push tag
-      if: ${{ contains(github.workflow_run.head_commit.message, '#skip') }}
+      if: ${{ contains($GITHUB_CONTEXT, '#skip') }}
       uses: anothrNick/github-tag-action@1.55.0
       env:
         GITHUB_TOKEN: ${{ secrets.VERSIONING_TOKEN }}
