@@ -1,14 +1,12 @@
 name: Bump version
 
 on:
-  pull_request:
-    types:
-      - closed
-    branches:
-      - master
-      
+  workflow_run:
+    workflows: ["Fly Deploy"]
+    types: [completed]
+
 jobs:
-  build:
+  on-success:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v3
