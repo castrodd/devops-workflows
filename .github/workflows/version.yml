@@ -39,3 +39,11 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.VERSIONING_TOKEN }}
         WITH_V: true
+  health:
+    name: URL Health Check
+    runs-on: ubuntu-latest
+    needs: tag
+    steps:
+    - uses: Jtalk/url-health-check-action@v3
+      with:
+        url: https://devops-workflows.fly.dev|https://devops-workflows.fly.dev/pokemon/pikachu
