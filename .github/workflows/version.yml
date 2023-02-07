@@ -1,9 +1,9 @@
 name: Bump version
 
 on:
-  workflow_run:
-    workflows: ["Fly Deploy"]
-    types: [completed]
+  push:
+    branches:
+      - master
 
 jobs:
   on-success:
@@ -17,6 +17,10 @@ jobs:
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
       run: echo "$GITHUB_CONTEXT"
+    - name: commits
+      env:
+        COMMITS: ${{ toJson(github.event.commits) }}
+      run: echo "$COMMITS"
 
     - name: Bump version and push tag
       if: ${{ contains(github.workflow_run.head_commit.message, '#skip') }}
