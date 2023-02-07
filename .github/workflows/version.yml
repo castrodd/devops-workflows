@@ -19,7 +19,7 @@ jobs:
       run: echo "$GITHUB_CONTEXT"
 
     - name: Bump version and push tag
-      if: ${{ contains($GITHUB_CONTEXT, '#skip') }}
+      if: ${{ contains(github.workflow_run.head_commit.message, '#skip') }}
       uses: anothrNick/github-tag-action@1.55.0
       env:
         GITHUB_TOKEN: ${{ secrets.VERSIONING_TOKEN }}
