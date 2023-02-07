@@ -1,4 +1,4 @@
-name: Deployment pipeline
+name: Pre-merge deployment pipeline
 
 on:
   pull_request:
