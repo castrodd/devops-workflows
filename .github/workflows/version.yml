@@ -22,7 +22,7 @@ jobs:
         COMMITS: ${{ toJson(github.event.head_commit.message) }}
       run: echo "$COMMITS"
 
-    - name: Bump version and push tag if not to be skipped
+    - name: Bump version and push tag if not skipped
       if: ${{ !contains(github.event.head_commit.message, '#skip') }}
       uses: anothrNick/github-tag-action@1.55.0
       env:
